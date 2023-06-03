@@ -4,7 +4,6 @@ import * as React from "react";
 import Link from "next/link";
 import {Score} from "@/components/Score";
 import Image from "next/image";
-import {getMovieThumbnail} from "@/lib/util";
 
 interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {
     movie: Movie,
@@ -12,45 +11,29 @@ interface MovieCardProps extends React.HTMLAttributes<HTMLDivElement> {
     props?: any
 }
 
-
-const MovieCard = ({movie, className, ...props}: MovieCardProps) => (
-    <Link
-        href={`/movies/${movie.id}`}
-        className={clsx(
-            "relative border-4 border-black transition-all bg-black bg-opacity-70 rounded-lg overflow-hidden lg:transform lg:hover:scale-110 lg:hover:bg-opacity-100 lg:hover:shadow-2xl"
-        )}
-    >
-        <Image
-            src={getMovieThumbnail(movie.poster_path)}
-            width={400}
-            height={400}
-            alt=""
-            className="transition-transform duration-500 ease-in-out opacity-60"
-        />
+const MovieCard: React.FC<MovieCardProps> = ({movie}) => (
+    <Link href={`/movies/${movie.id}`}
+          className={clsx("")}>
         <div
-            className={clsx(
-                "absolute inset-0 p-4 flex flex-col justify-between text-white " + className
-            )}
-            {...props}
-        >
-            <div>
-                <h2 className={clsx(
-                    "text-xl py-2 leading-5 tracking-tighter font-semibold text-shadow"
-                )}>
-                    {movie.title}
-                </h2>
-                <p className={clsx(
-                    "text-sm py-2 leading-relaxed tracking-tight text-shadow"
-                )}>
-                    {movie.overview}
-                </p>
-            </div>
-            <Score
-                className={clsx("self-start")}
-                movieScore={movie.vote_average}
+            className="relative transition-all duration-400 rounded-2xl overflow-hidden lg:transform lg:hover:scale-110 lg:hover:shadow-2xl lg:hover:z-10 lg:hover:-translate-y-1 border-transparent lg:hover:border-slate-200 dark:lg:hover:border-slate-800 lg:border-4 ease-in-out">
+            <Image
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                className={clsx("")}
+                alt={movie.title}
+                width={400}
+                height={400}
             />
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-end p-5">
+                <h2 className="text-2xl font-bold text-white">{movie.title}</h2>
+                <p className="text-white">{movie.release_date}</p>
+                <p className="text-white">Rating: {movie.vote_average}</p>
+                {movie.vote_average ?
+                    <Score
+                        className={clsx("self-start")}
+                        movieScore={movie.vote_average}/> : null}
+            </div>
         </div>
     </Link>
 );
 
-export {MovieCard}
+export default MovieCard;
