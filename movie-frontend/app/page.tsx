@@ -1,16 +1,14 @@
 import MovieList from "@/components/MovieList";
 import Link from "next/link";
 import {Suspense} from "react";
+import SearchBar from "@/components/SearchBar";
 
 export default async function Home() {
     return (
         <>
-            <Link href="/">
-                <Suspense>
-                    {/* @ts-expect-error Server Component */}
-                    <MovieList className="" props={{}} />
-                </Suspense>
-            </Link>
+            <Suspense>
+                <MovieList/>
+            </Suspense>
             {/*<Link href="/movies/:id">*/}
             {/*    <MovieDetail/>*/}
             {/*</Link>*/}

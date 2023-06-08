@@ -1,6 +1,7 @@
 import './globals.css'
 import {Inter} from 'next/font/google'
 import clsx from "clsx";
+import NavBar from "@/components/NavBar";
 
 const inter = Inter({subsets: ['latin']})
 
@@ -17,7 +18,12 @@ export default function RootLayout({
     return (
         <html lang="en">
         <body
-            className={clsx(inter.className, "bg-slate-200 dark:bg-slate-800 container m-auto grid items-center justify-center py-8 w-full min-w-[300px] min-h-screen")}>{children}</body>
+            className={clsx(inter.className, "text-slate-200 bg-slate-800 container m-auto grid items-center justify-center py-8 w-full min-w-[300px] min-h-screen")}>
+
+        <NavBar />
+        {children}
+
+        </body>
         </html>
     )
 }

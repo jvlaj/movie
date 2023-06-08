@@ -5,6 +5,8 @@ import MovieCard from "@/components/MovieCard";
 import {fetchDiscoverMovies} from "@/lib/fetchMovies";
 import {node} from "prop-types";
 import {NextComponentType} from "next";
+import {className} from "postcss-selector-parser";
+import clsx from "clsx";
 
 interface MovieListProps {
     className?: string,
@@ -38,7 +40,7 @@ const MovieList = () => {
 
     return (
         <div
-            className="grid gap-4 shadow-2xl items-center justify-between lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1">
+            className={clsx("grid gap-4 shadow-2xl items-center justify-between lg:grid-cols-3 md:grid-cols-1 sm:grid-cols-1", className)}>
             {data.map((movie, index) => {
                 if (data.length === index + 1) {
                     return <div ref={lastDataElementRef} key={index}><MovieCard movie={movie}/></div>
